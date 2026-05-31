@@ -17,6 +17,14 @@ AI 英语阅读学习应用，以多智能体 AIGC 为核心。用户通过阅�
 - **容器**：Docker + Docker Compose
 - **代码规范**：后端 ruff / 前端 eslint + prettier
 - **测试**：后端 pytest + pytest-asyncio + httpx / 前端 Vitest + Playwright
+- **包管理**：uv（`uv venv` 创建虚拟环境，`uv pip install` 安装依赖）
+
+### 依赖管理规范
+
+- `pyproject.toml` — 声明依赖版本范围（开发依赖在 `[project.optional-dependencies]` dev 下）
+- `requirements.txt` — 由 `uv pip freeze > requirements.txt` 生成，锁定精确版本，用于生产部署
+- 虚拟环境在 `backend/.venv/`，不提交到 git
+- 新增依赖：先加到 `pyproject.toml`，再 `uv pip install -e ".[dev]"`，再 `uv pip freeze > requirements.txt`
 
 ## 架构原则
 

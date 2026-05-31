@@ -66,9 +66,9 @@
 
 | # | 任务 | 复杂度 | 状态 |
 |---|---|---|---|
-| 0.1 | 初始化 git 仓库：`git init`，创建 `.gitignore`（Python + Node + IDE 模板） | 低 | ⬜ |
-| 0.2 | 创建目录结构：按蓝图第二章的 backend 目录创建空目录和 `__init__.py` | 低 | ⬜ |
-| 0.3 | 创建 pyproject.toml：核心依赖 fastapi, uvicorn, sqlalchemy[asyncio], asyncpg, alembic, pydantic-settings, redis, openai, PyJWT, passlib[bcrypt], httpx, ruff | 低 | ⬜ |
+| 0.1 | 初始化 git 仓库：`git init`，创建 `.gitignore`（Python + Node + IDE 模板） | 低 | ✅ |
+| 0.2 | 创建目录结构：按蓝图第二章的 backend 目录创建空目录和 `__init__.py` | 低 | ✅ |
+| 0.3 | 创建 pyproject.toml：核心依赖 fastapi, uvicorn, sqlalchemy[asyncio], asyncpg, alembic, pydantic-settings, redis, openai, PyJWT, passlib[bcrypt], httpx, ruff | 低 | ✅ |
 | 0.4 | 创建 docker-compose.yml：服务 postgres (5432)、redis (6379)，带 volume 持久化和健康检查 | 中 | ⬜ |
 | 0.5 | 创建 config.py：pydantic-settings BaseSettings，字段 DATABASE_URL, REDIS_URL, SECRET_KEY, OPENAI_API_KEY, OPENAI_BASE_URL, CORS_ORIGINS, ENV | 中 | ⬜ |
 | 0.6 | 创建 database.py：异步引擎、async sessionmaker、`get_db()` 依赖。连接串必须用 `postgresql+asyncpg://` | 中 | ⬜ |
