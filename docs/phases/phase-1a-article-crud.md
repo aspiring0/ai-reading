@@ -13,9 +13,9 @@
 
 ## 当前进度
 
-**已完成**: 尚未开始
-**下一步**: Checkpoint 1a-1 — 文章数据模型（任务 1a.1, 1a.2, 1a.3）
-**Git 分支**: `develop`
+**已完成**: Checkpoint 1a-1 ✅
+**下一步**: Checkpoint 1a-2 — Repository 层（任务 1a.4, 1a.5）
+**Git 分支**: `feature/P1a-1-article-model`
 
 > 每个 checkpoint 完成后更新此节。新会话读此文件即可知道从哪继续。
 
@@ -81,9 +81,9 @@
 
 | # | 任务 | 复杂度 | 状态 |
 |---|---|---|---|
-| 1a.1 | 创建 `models/article.py` — Article、ArticleSegment、DifficultyLevel 模型 | 中 | ⬜ |
-| 1a.2 | 创建 Alembic 迁移（articles + article_segments 表） | 低 | ⬜ |
-| 1a.3 | 创建 `schemas/article.py` — ArticleCreate, ArticleResponse, ArticleListResponse 等 Pydantic 模型 | 中 | ⬜ |
+| 1a.1 | 创建 `models/article.py` — Article、ArticleSegment、DifficultyLevel 模型 | 中 | ✅ |
+| 1a.2 | 创建 Alembic 迁移（articles + article_segments 表） | 低 | ✅ |
+| 1a.3 | 创建 `schemas/article.py` — ArticleCreate, ArticleResponse, ArticleListResponse 等 Pydantic 模型 | 中 | ✅ |
 | 1a.4 | 创建 `repositories/base.py` — 泛型异步 Repository：get(), get_multi(), create(), update(), delete(), count() | 中 | ⬜ |
 | 1a.5 | 创建 `repositories/article_repo.py` — 扩展基础 Repository：get_published(), get_by_difficulty(), get_by_topic(), search() | 中 | ⬜ |
 | 1a.6 | 创建 `services/article_service.py`（CRUD only，不含 LLM 生成逻辑） | 中 | ⬜ |
