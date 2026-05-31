@@ -18,6 +18,7 @@ from app.database import Base
 # 导入所有模型，让 Alembic 能检测到它们
 # 每添加新模型文件时，在这里 import 一次
 # from app.models.user import User  # noqa: F401  — Phase 3 启用
+from app.models.article import Article, ArticleSegment  # noqa: F401
 # from app.models.article import Article, ArticleSegment  # noqa: F401  — Phase 1 启用
 
 config = context.config
