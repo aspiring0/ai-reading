@@ -10,9 +10,9 @@
 
 ## 当前进度
 
-**已完成**: Checkpoint 0b-2 ✅
-**下一步**: Checkpoint 0b-3 — 规范工具 + Docker + 全栈验证（任务 0.19f, 0.21f, 0.22）
-**Git 分支**: `feature/P0b-2-layout-and-routing`
+**已完成**: Checkpoint 0b-3 ✅（Phase 0b 全部完成）
+**下一步**: Phase 1a — 内容管线后端
+**Git 分支**: `feature/P0b-3-tooling-and-integration`
 
 > 每个 checkpoint 完成后更新此节。新会话读此文件即可知道从哪继续。
 
@@ -62,9 +62,9 @@
 | 0.15 | 安装 TailwindCSS：`npm install -D tailwindcss @tailwindcss/vite`，配置 | 低 | ✅ |
 | 0.16 | 创建前端 API 客户端骨架：Axios 实例，带 auth token 拦截器和错误处理 | 中 | ✅ |
 | 0.17 | 创建基础布局和路由：AppHeader、HomeView（占位）、3 个占位路由 | 中 | ✅ |
-| 0.19f | 配置前端代码规范工具：eslint + prettier | 低 | ⬜ |
-| 0.21f | 创建前端 Dockerfile：多阶段构建 | 中 | ⬜ |
-| 0.22 | 全栈启动验证：`docker-compose up` 端到端冒烟测试 | 低 | ⬜ |
+| 0.19f | 配置前端代码规范工具：eslint + prettier | 低 | ✅ |
+| 0.21f | 创建前端 Dockerfile：多阶段构建 | 中 | ✅ |
+| 0.22 | 全栈启动验证：`docker-compose up` 端到端冒烟测试 | 低 | ✅ |
 
 ## API 端点
 
