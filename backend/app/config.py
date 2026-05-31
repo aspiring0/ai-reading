@@ -35,9 +35,10 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "change-me-to-a-random-secret"
 
     # LLM — OpenAI 兼容 API 配置
-    # OPENAI_BASE_URL 可指向任何兼容接口（DeepSeek、Ollama、Azure 等）
+    # OPENAI_BASE_URL 可指向任何兼容接口（智谱、DeepSeek、Ollama、Azure 等）
     OPENAI_API_KEY: str = ""
     OPENAI_BASE_URL: str = "https://api.openai.com/v1"
+    OPENAI_MODEL: str = "gpt-4o"  # 智谱用 glm-5，DeepSeek 用 deepseek-chat 等
 
     # CORS — 允许的前端域名，逗号分隔
     # 开发环境：前端 Vite 默认在 5173 端口
