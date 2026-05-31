@@ -6,9 +6,9 @@
 
 ## 当前进度
 
-**已完成**: Checkpoint 0a-3 ✅
-**下一步**: Checkpoint 0a-4 — 数据库迁移 + 基础模块（任务 0.8, 0.9, 0.12, 0.13）
-**Git 分支**: `feature/P0a-3-app-core`
+**已完成**: Checkpoint 0a-4 ✅
+**下一步**: Checkpoint 0a-5 — CI + 测试 + Docker（任务 0.18, 0.19b, 0.20, 0.21b）
+**Git 分支**: `feature/P0a-4-db-and-modules`
 
 > 每个 checkpoint 完成后更新此节。新会话读此文件即可知道从哪继续。
 
@@ -81,12 +81,12 @@
 | 0.5 | 创建 config.py：pydantic-settings BaseSettings，字段 DATABASE_URL, REDIS_URL, SECRET_KEY, OPENAI_API_KEY, OPENAI_BASE_URL, CORS_ORIGINS, ENV | 中 | ✅ |
 | 0.6 | 创建 database.py：异步引擎、async sessionmaker、`get_db()` 依赖。连接串必须用 `postgresql+asyncpg://` | 中 | ✅ |
 | 0.7 | 创建 main.py：FastAPI 实例，注册 CORS 中间件，lifespan 处理 Redis 连接/断开，挂载 v1 路由，添加 `/health` 端点 | 中 | ✅ |
-| 0.8 | 初始化 Alembic：`alembic init alembic`，配置 `env.py` 使用异步引擎并导入模型 | 中 | ⬜ |
+| 0.8 | 初始化 Alembic：`alembic init alembic`，配置 `env.py` 使用异步引擎并导入模型 | 中 | ✅ |
 | 0.9 | 创建初始迁移：`alembic revision --autogenerate -m "initial"` | 低 | ⬜ |
 | 0.10 | 创建 Makefile：目标 `dev`(docker-compose up), `migrate`, `test`, `lint`, `format` | 低 | ✅ |
 | 0.11 | 创建 .env.example：文档化所有必需的环境变量 | 低 | ✅ |
-| 0.12 | 创建 exceptions.py：异常层级 AppException -> NotFoundException / ValidationException / ExternalServiceException | 低 | ⬜ |
-| 0.13 | 创建 dependencies.py：共享依赖 get_db(), get_redis(), get_current_user()（暂为桩） | 低 | ⬜ |
+| 0.12 | 创建 exceptions.py：异常层级 AppException -> NotFoundException / ValidationException / ExternalServiceException | 低 | ✅ |
+| 0.13 | 创建 dependencies.py：共享依赖 get_db(), get_redis(), get_current_user()（暂为桩） | 低 | ✅ |
 | 0.18 | 配置 GitHub Actions CI：PR 触发后端 lint (ruff) + test (pytest) | 中 | ⬜ |
 | 0.19b | 配置后端代码规范工具：ruff（在 pyproject.toml 中配置） | 低 | ⬜ |
 | 0.20 | 编写第一个测试：测试 `GET /health` 返回 200，用 httpx.AsyncClient + ASGITransport | 低 | ⬜ |
