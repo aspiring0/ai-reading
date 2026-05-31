@@ -11,6 +11,14 @@
 - `backend/app/database.py`、`config.py`、`main.py` 已就绪
 - Alembic 已初始化，`env.py` 已配置异步引擎
 
+## 当前进度
+
+**已完成**: 尚未开始
+**下一步**: Checkpoint 1a-1 — 文章数据模型（任务 1a.1, 1a.2, 1a.3）
+**Git 分支**: `develop`
+
+> 每个 checkpoint 完成后更新此节。新会话读此文件即可知道从哪继续。
+
 ## 检查点
 
 ### Checkpoint 1a-1: 文章数据模型
