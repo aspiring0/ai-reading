@@ -69,14 +69,14 @@
 | 0.1 | 初始化 git 仓库：`git init`，创建 `.gitignore`（Python + Node + IDE 模板） | 低 | ✅ |
 | 0.2 | 创建目录结构：按蓝图第二章的 backend 目录创建空目录和 `__init__.py` | 低 | ✅ |
 | 0.3 | 创建 pyproject.toml：核心依赖 fastapi, uvicorn, sqlalchemy[asyncio], asyncpg, alembic, pydantic-settings, redis, openai, PyJWT, passlib[bcrypt], httpx, ruff | 低 | ✅ |
-| 0.4 | 创建 docker-compose.yml：服务 postgres (5432)、redis (6379)，带 volume 持久化和健康检查 | 中 | ⬜ |
+| 0.4 | 创建 docker-compose.yml：服务 postgres (5432)、redis (6379)，带 volume 持久化和健康检查 | 中 | ✅ |
 | 0.5 | 创建 config.py：pydantic-settings BaseSettings，字段 DATABASE_URL, REDIS_URL, SECRET_KEY, OPENAI_API_KEY, OPENAI_BASE_URL, CORS_ORIGINS, ENV | 中 | ⬜ |
 | 0.6 | 创建 database.py：异步引擎、async sessionmaker、`get_db()` 依赖。连接串必须用 `postgresql+asyncpg://` | 中 | ⬜ |
 | 0.7 | 创建 main.py：FastAPI 实例，注册 CORS 中间件，lifespan 处理 Redis 连接/断开，挂载 v1 路由，添加 `/health` 端点 | 中 | ⬜ |
 | 0.8 | 初始化 Alembic：`alembic init alembic`，配置 `env.py` 使用异步引擎并导入模型 | 中 | ⬜ |
 | 0.9 | 创建初始迁移：`alembic revision --autogenerate -m "initial"` | 低 | ⬜ |
-| 0.10 | 创建 Makefile：目标 `dev`(docker-compose up), `migrate`, `test`, `lint`, `format` | 低 | ⬜ |
-| 0.11 | 创建 .env.example：文档化所有必需的环境变量 | 低 | ⬜ |
+| 0.10 | 创建 Makefile：目标 `dev`(docker-compose up), `migrate`, `test`, `lint`, `format` | 低 | ✅ |
+| 0.11 | 创建 .env.example：文档化所有必需的环境变量 | 低 | ✅ |
 | 0.12 | 创建 exceptions.py：异常层级 AppException -> NotFoundException / ValidationException / ExternalServiceException | 低 | ⬜ |
 | 0.13 | 创建 dependencies.py：共享依赖 get_db(), get_redis(), get_current_user()（暂为桩） | 低 | ⬜ |
 | 0.18 | 配置 GitHub Actions CI：PR 触发后端 lint (ruff) + test (pytest) | 中 | ⬜ |
