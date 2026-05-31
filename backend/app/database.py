@@ -15,8 +15,16 @@
 from collections.abc import AsyncGenerator
 
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.orm import DeclarativeBase
 
 from app.config import settings
+
+
+# 声明式基类 — 所有 ORM 模型继承此类
+# Alembic 通过 Base.metadata 检测模型变化来生成迁移
+class Base(DeclarativeBase):
+    pass
+
 
 # 异步引擎 — 管理连接池，所有数据库操作共用
 # echo=True 会在开发环境打印 SQL 语句，方便调试
