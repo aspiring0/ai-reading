@@ -1,62 +1,94 @@
-# 全流程：从你在浏览器输入 URL 到看到结果
+# 项目进度图
 
-## 一个完整的请求链路
+> 用图示展示项目"长了什么"，每个阶段完成后更新。
 
-假设你在浏览器打开 `http://localhost:8000/health`，背后发生了这些事：
-
-```
-你在浏览器输入 URL
-    ↓
-① 浏览器发请求给 Uvicorn（Python 的 Web 服务器）
-    ↓
-② Uvicorn 把请求交给 FastAPI（我们的代码框架）
-    ↓
-③ FastAPI 看请求路径是 /health，找到对应的函数
-    ↓
-④ 执行 health() 函数里的代码：
-    ├── 连接 PostgreSQL，执行 SELECT 1 看数据库在不在
-    └── 连接 Redis，执行 PING 看缓存在不在
-    ↓
-⑤ 把结果组装成 JSON 字符串返回
-    ↓
-⑥ 浏览器显示 {"status":"ok","database":"connected","redis":"connected"}
-```
-
-## 每个环节对应项目中的什么
-
-| 环节 | 对应的文件 | 作用 |
-|---|---|---|
-| Web 服务器 | uvicorn（第三方库） | 接收 HTTP 请求，转交给我们的代码 |
-| 框架 | `app/main.py` 里的 `app = FastAPI(...)` | 决定请求该由哪个函数处理 |
-| 路由匹配 | `@app.get("/health")` | 把 URL 和函数绑定在一起 |
-| 数据库连接 | `app/database.py` | 和 PostgreSQL 通信 |
-| Redis 连接 | `app/main.py` 的 lifespan | 和 Redis 通信 |
-| 配置读取 | `app/config.py` | 从 .env 文件读取数据库地址、密码等 |
-| 容器运行 | `docker-compose.yml` | 把 PostgreSQL 和 Redis 跑在 Docker 里 |
-
-## 它们是怎么启动的
+## 当前状态：Phase 1a-1 完成
 
 ```
-你在终端输入: cd backend && uvicorn app.main:app --reload
-
-1. Uvicorn 启动
-2. 加载 app.main 这个模块
-3. 执行 main.py 里的代码：
-   ├── 读取 config.py → 从 .env 加载配置（数据库地址、Redis 地址等）
-   ├── 创建数据库引擎（database.py 里的 engine）
-   ├── 注册 CORS 中间件（允许前端跨域访问）
-   ├── 注册路由（/health、/api/v1/...）
-   └── 执行 lifespan 的启动部分 → 连接 Redis，存到 app.state.redis
-4. Uvicorn 开始监听 8000 端口，等待请求
-5. 请求进来 → 按上面的链路处理
+你（用户）
+  ↓ 浏览器
+  ↓
+┌─────────────────────────────────────────────────────┐
+│  前端 (localhost:5173)              状态             │
+│  ├── 首页 /                     ← 占位页面 ✅      │
+│  ├── 文章列表 /articles         ← 占位页面 ✅      │
+│  ├── 语料库 /corpus             ← 占位页面 ✅      │
+│  ├── 关于 /about                ← 占位页面 ✅      │
+│  └── API 客户端 (Axios)         ← 已配置 ✅        │
+└────────────────────┬────────────────────────────────┘
+                     ↓ Vite 代理 /api → :8000
+┌────────────────────┴────────────────────────────────┐
+│  后端 (localhost:8000)              状态             │
+│  ├── GET /health                ← 健康检查 ✅       │
+│  ├── /api/v1/...                ← 空路由 ⬜         │
+│  ├── Service 层                 ← 还没有 ⬜         │
+│  ├── Repository 层              ← 还没有 ⬜         │
+│  └── Agent 层 (AI)              ← 还没有 ⬜         │
+├─────────────────────────────────────────────────────┤
+│  数据模型                          状态             │
+│  ├── articles 表                ← 已创建 ✅         │
+│  ├── article_segments 表        ← 已创建 ✅         │
+│  ├── users 表                   ← Phase 3 ⬜       │
+│  ├── reading_sessions 表        ← Phase 2 ⬜       │
+│  ├── corpus_entries 表          ← Phase 3 ⬜       │
+│  └── quiz_questions 表          ← Phase 4 ⬜       │
+└──────────┬──────────────────┬───────────────────────┘
+           ↓                  ↓
+    ┌──────────────┐   ┌──────────────┐
+    │ PostgreSQL   │   │ Redis        │
+    │ 2 张表 ✅    │   │ 已连接 ✅    │
+    └──────────────┘   └──────────────┘
 ```
 
-## 一句话总结每个文件是干嘛的
+## 已完成的里程碑
 
-- **config.py** → 读配置（数据库在哪、密码是啥）
-- **database.py** → 连数据库
-- **main.py** → 把所有东西组装起来，是整个应用的入口
-- **dependencies.py** → 提供公用工具（给数据库连接、给 Redis 连接）
-- **exceptions.py** → 定义错误类型（404、401 等）
-- **docker-compose.yml** → 让 PostgreSQL 和 Redis 在容器里跑
-- **.env** → 存密码和密钥（不提交到 git）
+### Phase 0a: 后端骨架 ✅
+```
+Python 环境 ─→ 数据库连接 ─→ Redis 连接 ─→ 健康检查 ─→ 异常体系 ─→ 测试 ─→ CI
+```
+- 能启动、能连数据库、能连 Redis
+- `/health` 端点可用
+- pytest 1 个测试通过
+- GitHub Actions CI 配置好了
+
+### Phase 0b: 前端骨架 ✅
+```
+Vue 项目 ─→ TailwindCSS ─→ 路由 ─→ API 客户端 ─→ Docker
+```
+- 4 个占位页面可访问
+- Axios 客户端已配置（带 token 注入和错误处理）
+- Vite 代理到后端已配置
+
+### Phase 1a-1: 文章数据模型 ✅
+```
+ORM 模型 ─→ Alembic 迁移 ─→ 数据库建表 ─→ Pydantic Schemas
+```
+- articles 表：存文章标题、内容、难度等
+- article_segments 表：存分段内容（用于分段式阅读）
+- 创建和响应的数据格式已定义
+
+## 接下来要建什么
+
+```
+Phase 1a-2: Repository 层 ← 下一个
+  目标：让代码能对 articles 表做增删改查
+  ┌────────────────────────────────┐
+  │  article_repo.py               │
+  │  ├── create(article) → 存入 DB  │
+  │  ├── get(id) → 取出一篇         │
+  │  ├── get_multi() → 列表+分页   │
+  │  ├── get_published() → 已发布   │
+  │  ├── update(id, data) → 更新    │
+  │  └── delete(id) → 删除          │
+  └────────────────────────────────┘
+```
+
+## 最终目标（MVP 完成时）
+
+```
+用户旅程：
+  注册 → 问卷定级 → 看推荐文章 → 阅读+查词辅助 → 保存到语料库 → 做理解题 → 复习
+
+技术架构：
+  浏览器 → Vue 前端 → FastAPI 后端 → PostgreSQL + Redis + 智谱AI
+```

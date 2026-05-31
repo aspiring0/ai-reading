@@ -8,7 +8,7 @@
 
 | 文件 | 主题 |
 |---|---|
-| [00-full-flow.md](00-full-flow.md) | **先看这个** — 一个请求从浏览器到响应的完整链路 |
+| [00-full-flow.md](00-full-flow.md) | **项目进度图** — 当前搭建到哪了、接下来建什么、完整架构图 |
 | [06-async-explained.md](06-async-explained.md) | 异步编程 — 为什么 Web 服务器需要 async/await |
 
 ## 后端核心
@@ -24,6 +24,7 @@
 
 | 文件 | 主题 |
 |---|---|
+| [12-orm-and-schemas.md](12-orm-and-schemas.md) | ORM 与 Schemas — models/ 和 schemas/ 为什么要分开、relationship 是什么 |
 | [02-postgresql-and-redis.md](02-postgresql-and-redis.md) | 两个数据库 — PostgreSQL vs Redis、连接串、连接池 |
 | [03-alembic-and-migrations.md](03-alembic-and-migrations.md) | 数据库迁移 — 为什么不能手动建表 |
 
