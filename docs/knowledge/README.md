@@ -31,6 +31,7 @@
 
 | 文件 | 主题 |
 |---|---|
+| [11-frontend-basics.md](11-frontend-basics.md) | **前端入门** — Vue/Vite/Axios 是什么、.vue 文件结构、前后端数据流通 |
 | [10-api-and-frontend-backend.md](10-api-and-frontend-backend.md) | API 设计与前后端通信 — 接口规划、Vite 代理、Axios 拦截器、前端路由 |
 
 ## 架构与规范
