@@ -8,6 +8,14 @@
 
 - Phase 0a（后端骨架）已完成，`/health` 端点可访问
 
+## 当前进度
+
+**已完成**: Checkpoint 0b-1 ✅
+**下一步**: Checkpoint 0b-2 — 布局 + API 客户端 + 路由（任务 0.16, 0.17）
+**Git 分支**: `feature/P0b-1-init-frontend`
+
+> 每个 checkpoint 完成后更新此节。新会话读此文件即可知道从哪继续。
+
 ## 检查点
 
 ### Checkpoint 0b-1: 前端项目初始化
@@ -50,8 +58,8 @@
 
 | # | 任务 | 复杂度 | 状态 |
 |---|---|---|---|
-| 0.14 | 初始化前端：`npm create vue@latest`，选 TypeScript + Pinia + Vue Router | 低 | ⬜ |
-| 0.15 | 安装 TailwindCSS：`npm install -D tailwindcss @tailwindcss/vite`，配置 | 低 | ⬜ |
+| 0.14 | 初始化前端：`npm create vue@latest`，选 TypeScript + Pinia + Vue Router | 低 | ✅ |
+| 0.15 | 安装 TailwindCSS：`npm install -D tailwindcss @tailwindcss/vite`，配置 | 低 | ✅ |
 | 0.16 | 创建前端 API 客户端骨架：Axios 实例，带 auth token 拦截器和错误处理 | 中 | ⬜ |
 | 0.17 | 创建基础布局和路由：AppHeader、HomeView（占位）、3 个占位路由 | 中 | ⬜ |
 | 0.19f | 配置前端代码规范工具：eslint + prettier | 低 | ⬜ |
