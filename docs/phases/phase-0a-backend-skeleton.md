@@ -6,9 +6,9 @@
 
 ## 当前进度
 
-**已完成**: Checkpoint 0a-4 ✅
-**下一步**: Checkpoint 0a-5 — CI + 测试 + Docker（任务 0.18, 0.19b, 0.20, 0.21b）
-**Git 分支**: `feature/P0a-4-db-and-modules`
+**已完成**: Checkpoint 0a-5 ✅（Phase 0a 全部完成）
+**下一步**: Phase 0b — 前端骨架
+**Git 分支**: `feature/P0a-5-ci-and-tests`
 
 > 每个 checkpoint 完成后更新此节。新会话读此文件即可知道从哪继续。
 
@@ -87,10 +87,10 @@
 | 0.11 | 创建 .env.example：文档化所有必需的环境变量 | 低 | ✅ |
 | 0.12 | 创建 exceptions.py：异常层级 AppException -> NotFoundException / ValidationException / ExternalServiceException | 低 | ✅ |
 | 0.13 | 创建 dependencies.py：共享依赖 get_db(), get_redis(), get_current_user()（暂为桩） | 低 | ✅ |
-| 0.18 | 配置 GitHub Actions CI：PR 触发后端 lint (ruff) + test (pytest) | 中 | ⬜ |
-| 0.19b | 配置后端代码规范工具：ruff（在 pyproject.toml 中配置） | 低 | ⬜ |
-| 0.20 | 编写第一个测试：测试 `GET /health` 返回 200，用 httpx.AsyncClient + ASGITransport | 低 | ⬜ |
-| 0.21b | 创建后端 Dockerfile：多阶段构建 | 中 | ⬜ |
+| 0.18 | 配置 GitHub Actions CI：PR 触发后端 lint (ruff) + test (pytest) | 中 | ✅ |
+| 0.19b | 配置后端代码规范工具：ruff（在 pyproject.toml 中配置） | 低 | ✅ |
+| 0.20 | 编写第一个测试：测试 `GET /health` 返回 200，用 httpx.AsyncClient + ASGITransport | 低 | ✅ |
+| 0.21b | 创建后端 Dockerfile：多阶段构建 | 中 | ✅ |
 
 ## API 端点
 
