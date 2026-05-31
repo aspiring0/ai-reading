@@ -12,6 +12,14 @@
 - `OPENAI_API_KEY` 和 `OPENAI_BASE_URL` 已在 `.env` 中配置
 - `backend/app/repositories/article_repo.py`、`services/article_service.py` 已就绪
 
+## 当前进度
+
+**已完成**: 尚未开始
+**下一步**: Checkpoint 1b-1 — LLM 基础设施（任务 1b.1, 1b.2）
+**Git 分支**: `develop`
+
+> 每个 checkpoint 完成后更新此节。新会话读此文件即可知道从哪继续。
+
 ## 检查点
 
 ### Checkpoint 1b-1: LLM 基础设施

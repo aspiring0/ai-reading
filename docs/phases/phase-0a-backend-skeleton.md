@@ -82,7 +82,7 @@
 | 0.6 | 创建 database.py：异步引擎、async sessionmaker、`get_db()` 依赖。连接串必须用 `postgresql+asyncpg://` | 中 | ✅ |
 | 0.7 | 创建 main.py：FastAPI 实例，注册 CORS 中间件，lifespan 处理 Redis 连接/断开，挂载 v1 路由，添加 `/health` 端点 | 中 | ✅ |
 | 0.8 | 初始化 Alembic：`alembic init alembic`，配置 `env.py` 使用异步引擎并导入模型 | 中 | ✅ |
-| 0.9 | 创建初始迁移：`alembic revision --autogenerate -m "initial"` | 低 | ⬜ |
+| 0.9 | 创建初始迁移：`alembic revision --autogenerate -m "initial"` | 低 | ⏳ Phase 1 |
 | 0.10 | 创建 Makefile：目标 `dev`(docker-compose up), `migrate`, `test`, `lint`, `format` | 低 | ✅ |
 | 0.11 | 创建 .env.example：文档化所有必需的环境变量 | 低 | ✅ |
 | 0.12 | 创建 exceptions.py：异常层级 AppException -> NotFoundException / ValidationException / ExternalServiceException | 低 | ✅ |

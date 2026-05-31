@@ -10,6 +10,14 @@
 - reading_sessions 的 user_id 已通过认证填充
 - 前端认证页面和路由守卫已实现
 
+## 当前进度
+
+**已完成**: 尚未开始
+**下一步**: Checkpoint 3b-1 — 语料库数据模型与 CRUD（任务 3b.1, 3b.2, 3b.3, 3b.4, 3b.5）
+**Git 分支**: `develop`
+
+> 每个 checkpoint 完成后更新此节。新会话读此文件即可知道从哪继续。
+
 ## 检查点与 Git 提交点
 
 ### Checkpoint 3b-1: 语料库数据模型与 CRUD
