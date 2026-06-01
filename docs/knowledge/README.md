@@ -27,6 +27,7 @@
 | [12-orm-and-schemas.md](12-orm-and-schemas.md) | ORM 与 Schemas — models/ 和 schemas/ 为什么要分开、relationship 是什么 |
 | [02-postgresql-and-redis.md](02-postgresql-and-redis.md) | 两个数据库 — PostgreSQL vs Redis、连接串、连接池 |
 | [03-alembic-and-migrations.md](03-alembic-and-migrations.md) | 数据库迁移 — 为什么不能手动建表 |
+| [14-redis-caching.md](14-redis-caching.md) | **Redis 缓存** — Cache-Aside 模式、为什么删缓存而不是更新、TTL |
 
 ## 前端与通信
 
@@ -47,7 +48,7 @@
 
 | 阶段 | 待补充主题 |
 |---|---|
-| Phase 1 | LLM Agent（调用智谱 AI）、Redis 缓存策略 |
+| Phase 1 | LLM Agent（调用智谱 AI） |
 | Phase 2 | Vue 组件、Composition API |
 | Phase 3 | JWT 认证、bcrypt 密码哈希、FSRS 间隔重复 |
 | Phase 4 | 测试策略、CI/CD |

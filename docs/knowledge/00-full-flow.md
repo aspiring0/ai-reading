@@ -2,7 +2,7 @@
 
 > 用图示展示项目"长了什么"，每个阶段完成后更新。
 
-## 当前状态：Phase 1a-3 完成
+## 当前状态：Phase 1a-4 完成
 
 ```
 你（用户）
@@ -28,6 +28,8 @@
 │  ├── DELETE /api/v1/admin/articles/{id} ← 删除 ✅  │
 │  ├── Service 层 (article_service)   ← 已创建 ✅    │
 │  ├── Repository 层 (article_repo)   ← 已创建 ✅    │
+│  ├── 缓存 (Redis Cache-Aside)      ← 已实现 ✅    │
+│  ├── 文本工具 (text_processing)    ← 已实现 ✅    │
 │  └── Agent 层 (AI)              ← 还没有 ⬜         │
 ├─────────────────────────────────────────────────────┤
 │  数据模型                          状态             │
@@ -89,21 +91,26 @@ ArticleService ─→ 公开 API ─→ Admin API ─→ 14 个 API 测试 ─�
 - Service 层：字数计算、发布状态管理
 - 32 个测试全部通过
 
+### Phase 1a-4: 缓存 + 文本工具 ✅
+```
+text_processing ─→ Redis 缓存 ─→ 缓存失效 ─→ 47 个测试 ─→ curl 实测
+```
+- 自动分段：按空行拆分，短行识别为标题
+- 阅读时间：按 200 词/分钟估算
+- Redis 缓存：Cache-Aside 模式，TTL 1 小时，更新/删除时自动失效
+- 47 个测试全部通过，curl 全链路验证通过
+
 ## 接下来要建什么
 
 ```
-Phase 1a-4: 缓存 + 文本工具 + 完善 ← 下一个
-  目标：加 Redis 缓存 + 文本处理工具 + 更完善的测试
+Phase 1a-5: 前端文章页面 ← 下一个
+  目标：用户能在浏览器看到文章列表和详情
   ┌──────────────────────────────────┐
-  │  utils/text_processing.py        │
-  │  ├── split_paragraphs() 分段     │
-  │  ├── count_words() 字数统计      │
-  │  └── estimate_reading_time()     │
-  │                                  │
-  │  Redis 缓存 (Cache-Aside)        │
-  │  ├── 读文章 → 先查 Redis         │
-  │  ├── 未命中 → 查 DB → 写 Redis   │
-  │  └── 更新/删除 → 清除缓存        │
+  │  前端页面                         │
+  │  ├── HomeView 文章列表（卡片）    │
+  │  │   └── 标题、难度标签、字数     │
+  │  └── ArticleView 文章详情        │
+  │      └── 分段展示、阅读时间       │
   └──────────────────────────────────┘
 ```
 
