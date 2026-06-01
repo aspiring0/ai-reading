@@ -2,7 +2,7 @@
 
 > 用图示展示项目"长了什么"，每个阶段完成后更新。
 
-## 当前状态：Phase 1a 全部完成 ✅
+## 当前状态：Phase 1b-1 完成（LLM 基础设施）
 
 ```
 你（用户）
@@ -31,6 +31,8 @@
 │  ├── Repository 层 (article_repo)   ← 已创建 ✅    │
 │  ├── 缓存 (Redis Cache-Aside)      ← 已实现 ✅    │
 │  ├── 文本工具 (text_processing)    ← 已实现 ✅    │
+│  ├── LLM Client (llm_client)      ← 已实现 ✅    │
+│  ├── BaseAgent (agents/base)       ← 已实现 ✅    │
 │  └── Agent 层 (AI)              ← 还没有 ⬜         │
 ├─────────────────────────────────────────────────────┤
 │  数据模型                          状态             │
@@ -79,20 +81,29 @@ Vue 项目 ─→ TailwindCSS ─→ 路由 ─→ API 客户端 ─→ Docker
 - 前端：文章卡片列表 + 分段详情页
 - 47 个后端测试全部通过
 
+### Phase 1b-1: LLM 基础设施 ✅
+```
+LLMClient ─→ BaseAgent ─→ JSON 解析+重试 ─→ 12 个测试
+```
+- LLMClient：封装 OpenAI SDK，指数退避重试（1s→2s→4s），日志记录 token 用量
+- BaseAgent：system_prompt 管理，JSON→Pydantic 校验，解析失败自动重试+错误提示注入
+- 59 个测试全部通过
+
 ## 接下来要建什么
 
 ```
-Phase 1b: LLM Agent ← 下一个
-  目标：接入智谱 AI，让系统能自动生成文章
+Phase 1b-2: 内容生成管线 ← 下一个
+  目标：两个 AI Agent 协作，自动生成+评判文章
   ┌──────────────────────────────────┐
-  │  agents/base.py                  │
-  │  └── BaseAgent (调用 OpenAI SDK) │
-  │                                  │
-  │  agents/writer.py                │
-  │  └── WriterAgent (生成文章)      │
-  │                                  │
-  │  agents/judge.py                 │
-  │  └── JudgeAgent (评估文章质量)   │
+  │  ContentGenerator（写手）        │
+  │  └── 输入 topic/difficulty       │
+  │      输出 {title, segments, ...} │
+  │              ↓                   │
+  │  ContentJudge（评委）            │
+  │  └── 评分 0-1，低于 0.7 则重试   │
+  │              ↓                   │
+  │  Service 层编排（管线）          │
+  │  └── 生成 → 评判 → 重试/存储    │
   └──────────────────────────────────┘
 ```
 

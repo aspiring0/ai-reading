@@ -19,6 +19,7 @@
 | [05-app-state-and-lifespan.md](05-app-state-and-lifespan.md) | app.state 和 lifespan — 应用启动/关闭管理 |
 | [07-dependency-injection-explained.md](07-dependency-injection-explained.md) | 依赖注入 — Depends() 工作原理 |
 | [08-pydantic-settings-explained.md](08-pydantic-settings-explained.md) | 配置管理 — .env 和 config.py 的关系 |
+| [15-llm-client-and-agent.md](15-llm-client-and-agent.md) | **LLM Client 和 Agent** — 封装 OpenAI SDK、指数退避重试、BaseAgent JSON 解析 |
 
 ## 数据与存储
 
