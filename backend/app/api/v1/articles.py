@@ -9,9 +9,10 @@
 import uuid
 
 from fastapi import APIRouter, Depends, Query
+from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.dependencies import get_db
+from app.dependencies import get_db, get_redis
 from app.schemas.article import ArticleListResponse, ArticleResponse
 from app.services.article_service import ArticleService
 
@@ -25,19 +26,19 @@ async def list_articles(
     page: int = Query(1, ge=1, description="页码"),
     page_size: int = Query(20, ge=1, le=50, description="每页数量"),
     db: AsyncSession = Depends(get_db),
+    redis: Redis = Depends(get_redis),
 ) -> ArticleListResponse:
     """获取已发布文章列表。"""
-    service = ArticleService(db)
-    return await service.get_published_articles(
-        difficulty=difficulty, topic=topic, page=page, page_size=page_size
-    )
+    service = ArticleService(db, redis)
+    return await service.get_published_articles(difficulty=difficulty, topic=topic, page=page, page_size=page_size)
 
 
 @router.get("/{article_id}", response_model=ArticleResponse)
 async def get_article(
     article_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
+    redis: Redis = Depends(get_redis),
 ) -> ArticleResponse:
-    """获取文章详情（含段落）。"""
-    service = ArticleService(db)
+    """获取文章详情（含段落），带 Redis 缓存。"""
+    service = ArticleService(db, redis)
     return await service.get_article_detail(article_id)
