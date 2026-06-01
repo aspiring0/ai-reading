@@ -40,6 +40,9 @@ class Settings(BaseSettings):
     OPENAI_BASE_URL: str = "https://api.openai.com/v1"
     OPENAI_MODEL: str = "gpt-4o"  # 智谱用 glm-5，DeepSeek 用 deepseek-chat 等
 
+    # Admin — 管理 API 的密钥，用于创建/编辑/删除文章等操作
+    ADMIN_API_KEY: str = "dev-admin-key"
+
     # CORS — 允许的前端域名，逗号分隔
     # 开发环境：前端 Vite 默认在 5173 端口
     CORS_ORIGINS: str = "http://localhost:5173,http://localhost:3000"
