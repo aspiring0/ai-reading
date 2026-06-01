@@ -13,9 +13,9 @@
 
 ## 当前进度
 
-**已完成**: Checkpoint 1a-1 ✅, Checkpoint 1a-2 ✅
-**下一步**: Checkpoint 1a-3 — Service + API 端点（任务 1a.6 ~ 1a.9）
-**Git 分支**: `feature/P1a-2-repositories`
+**已完成**: Checkpoint 1a-1 ✅, Checkpoint 1a-2 ✅, Checkpoint 1a-3 ✅
+**下一步**: Checkpoint 1a-4 — 缓存 + 文本工具 + 测试（任务 1a.10 ~ 1a.12）
+**Git 分支**: `feature/P1a-3-article-api`
 
 > 每个 checkpoint 完成后更新此节。新会话读此文件即可知道从哪继续。
 
@@ -86,10 +86,10 @@
 | 1a.3 | 创建 `schemas/article.py` — ArticleCreate, ArticleResponse, ArticleListResponse 等 Pydantic 模型 | 中 | ✅ |
 | 1a.4 | 创建 `repositories/base.py` — 泛型异步 Repository：get(), get_multi(), create(), update(), delete(), count() | 中 | ✅ |
 | 1a.5 | 创建 `repositories/article_repo.py` — 扩展基础 Repository：get_published(), get_by_difficulty(), get_by_topic(), search() | 中 | ✅ |
-| 1a.6 | 创建 `services/article_service.py`（CRUD only，不含 LLM 生成逻辑） | 中 | ⬜ |
-| 1a.7 | 创建 `api/v1/articles.py` — 公开端点：文章列表、文章详情 | 中 | ⬜ |
-| 1a.8 | 创建 `api/v1/admin.py` — 管理 CRUD 端点（列表含草稿、更新状态、删除；不含 generate 端点） | 中 | ⬜ |
-| 1a.9 | 创建 `api/v1/router.py` — 聚合路由 | 低 | ⬜ |
+| 1a.6 | 创建 `services/article_service.py`（CRUD only，不含 LLM 生成逻辑） | 中 | ✅ |
+| 1a.7 | 创建 `api/v1/articles.py` — 公开端点：文章列表、文章详情 | 中 | ✅ |
+| 1a.8 | 创建 `api/v1/admin.py` — 管理 CRUD 端点（列表含草稿、更新状态、删除；不含 generate 端点） | 中 | ✅ |
+| 1a.9 | 创建 `api/v1/router.py` — 聚合路由 | 低 | ✅ |
 | 1a.10 | 创建 `utils/text_processing.py` — 分段、字数统计、阅读时间估算 | 中 | ⬜ |
 | 1a.11 | 添加 Redis 缓存（Cache-Aside 模式，缓存已发布文章，TTL 1 小时） | 中 | ⬜ |
 | 1a.12 | 编写测试 — Repository CRUD、API 端点（无 LLM mocking） | 高 | ⬜ |
