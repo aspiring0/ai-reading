@@ -14,9 +14,9 @@
 
 ## 当前进度
 
-**已完成**: 尚未开始
-**下一步**: Checkpoint 1b-1 — LLM 基础设施（任务 1b.1, 1b.2）
-**Git 分支**: `develop`
+**已完成**: Checkpoint 1b-1 ✅, Checkpoint 1b-2 ✅
+**下一步**: Checkpoint 1b-3 — 生成 API 端点（任务 1b.6, 1b.7）
+**Git 分支**: `feature/P1b-2-generation-pipeline`
 
 > 每个 checkpoint 完成后更新此节。新会话读此文件即可知道从哪继续。
 
@@ -81,9 +81,9 @@
 |---|---|---|---|
 | 1b.1 | 创建 `utils/llm_client.py` — 封装 openai.AsyncOpenAI，配置 base_url，指数退避重试，超时处理 | 中 | ⬜ |
 | 1b.2 | 创建 `agents/base.py` — BaseAgent 类：system_prompt 管理、LLM 调用、JSON 解析、重试逻辑、错误处理 | 中 | ⬜ |
-| 1b.3 | 创建 `agents/content_generator.py` — 内容生成 Agent，返回结构化 JSON：{title, segments, word_count, cefr_level} | 高 | ⬜ |
-| 1b.4 | 创建 `agents/content_judge.py` — 质量评判 Agent，多维度评分（语法、词汇、连贯性、吸引力），低于阈值则拒绝 | 高 | ⬜ |
-| 1b.5 | 更新 `services/article_service.py` — 添加生成管线编排逻辑：生成 → 评判 → 不达标重试（最多 2 次） → 存储 | 高 | ⬜ |
+| 1b.3 | 创建 `agents/content_generator.py` — 内容生成 Agent，返回结构化 JSON：{title, segments, word_count, cefr_level} | 高 | ✅ |
+| 1b.4 | 创建 `agents/content_judge.py` — 质量评判 Agent，多维度评分（语法、词汇、连贯性、吸引力），低于阈值则拒绝 | 高 | ✅ |
+| 1b.5 | 更新 `services/article_service.py` — 添加生成管线编排逻辑：生成 → 评判 → 不达标重试（最多 2 次） → 存储 | 高 | ✅ |
 | 1b.6 | 添加 `POST /api/v1/admin/articles/generate` 端点 — 异步触发生成，返回 202 + task_id | 中 | ⬜ |
 | 1b.7 | 添加 `GET /api/v1/admin/articles/generation-status/{task_id}` 端点 — 查询生成任务状态 | 中 | ⬜ |
 | 1b.8 | 编写测试 — Mock LLM 响应，测试完整管线含重试逻辑、Agent 单元、API 端点 | 高 | ⬜ |

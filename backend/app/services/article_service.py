@@ -20,6 +20,8 @@ from datetime import UTC, datetime
 import redis.asyncio as aioredis
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.agents.content_generator import ContentGenerator
+from app.agents.content_judge import ContentJudge
 from app.exceptions import NotFoundException
 from app.models.article import Article, ArticleSegment
 from app.repositories.article_repo import ArticleRepository
@@ -205,3 +207,53 @@ class ArticleService:
             page_size=page_size,
             pages=math.ceil(total / page_size) if total > 0 else 0,
         )
+
+    async def generate_with_pipeline(
+        self,
+        topic: str,
+        difficulty: str,
+        target_word_count: int = 300,
+        custom_instructions: str | None = None,
+    ) -> dict:
+        """生成管线：Generator → Judge → 不达标则带反馈重试（最多 3 次）。"""
+        from app.config import settings
+
+        generator = ContentGenerator()
+        judge = ContentJudge()
+        feedback: str | None = None
+        attempts = 0
+        last_judge_result = None
+        draft = None
+
+        for _ in range(3):
+            attempts += 1
+            draft = await generator.generate(
+                topic=topic,
+                difficulty=difficulty,
+                target_word_count=target_word_count,
+                custom_instructions=custom_instructions,
+                previous_feedback=feedback,
+            )
+            last_judge_result = await judge.judge(draft)
+            if last_judge_result.passed:
+                break
+            feedback = last_judge_result.feedback
+
+        metadata = {
+            "model": settings.OPENAI_MODEL,
+            "source": "ai_generated",
+            "attempts": attempts,
+            "passed": last_judge_result.passed,
+            "final_score": last_judge_result.score,
+            "dimensions": last_judge_result.dimensions.model_dump(),
+            "target_word_count": target_word_count,
+            "actual_word_count": draft.word_count,
+        }
+
+        return {
+            "draft": draft,
+            "quality_score": last_judge_result.score,
+            "attempts": attempts,
+            "passed": last_judge_result.passed,
+            "generation_metadata": metadata,
+        }
