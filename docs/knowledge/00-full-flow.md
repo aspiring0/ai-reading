@@ -2,7 +2,7 @@
 
 > 用图示展示项目"长了什么"，每个阶段完成后更新。
 
-## 当前状态：Phase 1a-1 完成
+## 当前状态：Phase 1a-3 完成
 
 ```
 你（用户）
@@ -20,9 +20,14 @@
 ┌────────────────────┴────────────────────────────────┐
 │  后端 (localhost:8000)              状态             │
 │  ├── GET /health                ← 健康检查 ✅       │
-│  ├── /api/v1/...                ← 空路由 ⬜         │
-│  ├── Service 层                 ← 还没有 ⬜         │
-│  ├── Repository 层              ← 还没有 ⬜         │
+│  ├── GET /api/v1/articles       ← 文章列表 ✅       │
+│  ├── GET /api/v1/articles/{id}  ← 文章详情 ✅       │
+│  ├── POST /api/v1/admin/articles   ← 创建文章 ✅   │
+│  ├── GET  /api/v1/admin/articles   ← 管理列表 ✅   │
+│  ├── PATCH /api/v1/admin/articles/{id} ← 更新 ✅   │
+│  ├── DELETE /api/v1/admin/articles/{id} ← 删除 ✅  │
+│  ├── Service 层 (article_service)   ← 已创建 ✅    │
+│  ├── Repository 层 (article_repo)   ← 已创建 ✅    │
 │  └── Agent 层 (AI)              ← 还没有 ⬜         │
 ├─────────────────────────────────────────────────────┤
 │  数据模型                          状态             │
@@ -67,20 +72,39 @@ ORM 模型 ─→ Alembic 迁移 ─→ 数据库建表 ─→ Pydantic Schemas
 - article_segments 表：存分段内容（用于分段式阅读）
 - 创建和响应的数据格式已定义
 
+### Phase 1a-2: Repository 层 ✅
+```
+BaseRepository ─→ ArticleRepository ─→ 17 个测试
+```
+- 泛型 BaseRepository：get/create/update/delete/count
+- ArticleRepository：按难度/主题过滤、搜索、分页
+- 测试：CRUD / 过滤 / 分页 / 搜索 / 关联查询
+
+### Phase 1a-3: Service + API 端点 ✅
+```
+ArticleService ─→ 公开 API ─→ Admin API ─→ 14 个 API 测试 ─→ curl 实测
+```
+- 公开端点：文章列表（分页+过滤）、文章详情
+- 管理端点：创建/列表/更新/删除，X-Admin-Key 认证
+- Service 层：字数计算、发布状态管理
+- 32 个测试全部通过
+
 ## 接下来要建什么
 
 ```
-Phase 1a-2: Repository 层 ← 下一个
-  目标：让代码能对 articles 表做增删改查
-  ┌────────────────────────────────┐
-  │  article_repo.py               │
-  │  ├── create(article) → 存入 DB  │
-  │  ├── get(id) → 取出一篇         │
-  │  ├── get_multi() → 列表+分页   │
-  │  ├── get_published() → 已发布   │
-  │  ├── update(id, data) → 更新    │
-  │  └── delete(id) → 删除          │
-  └────────────────────────────────┘
+Phase 1a-4: 缓存 + 文本工具 + 完善 ← 下一个
+  目标：加 Redis 缓存 + 文本处理工具 + 更完善的测试
+  ┌──────────────────────────────────┐
+  │  utils/text_processing.py        │
+  │  ├── split_paragraphs() 分段     │
+  │  ├── count_words() 字数统计      │
+  │  └── estimate_reading_time()     │
+  │                                  │
+  │  Redis 缓存 (Cache-Aside)        │
+  │  ├── 读文章 → 先查 Redis         │
+  │  ├── 未命中 → 查 DB → 写 Redis   │
+  │  └── 更新/删除 → 清除缓存        │
+  └──────────────────────────────────┘
 ```
 
 ## 最终目标（MVP 完成时）

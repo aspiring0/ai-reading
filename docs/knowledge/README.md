@@ -40,13 +40,14 @@
 | 文件 | 主题 |
 |---|---|
 | [09-project-architecture.md](09-project-architecture.md) | 项目架构 — 为什么要分层、文件夹结构对应关系 |
+| [13-service-and-api-layer.md](13-service-and-api-layer.md) | **Service 和 API 层** — 三层分工、Depends、model_validate、测试怎么工作 |
 | [01-docker-and-containers.md](01-docker-and-containers.md) | Docker — 容器化开发环境 |
 
 ## 后续补充计划
 
 | 阶段 | 待补充主题 |
 |---|---|
-| Phase 1 | ORM 模型（SQLAlchemy）、Repository 模式、LLM Agent |
+| Phase 1 | LLM Agent（调用智谱 AI）、Redis 缓存策略 |
 | Phase 2 | Vue 组件、Composition API |
 | Phase 3 | JWT 认证、bcrypt 密码哈希、FSRS 间隔重复 |
 | Phase 4 | 测试策略、CI/CD |
