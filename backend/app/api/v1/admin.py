@@ -11,10 +11,11 @@
 import uuid
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query
+from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
-from app.dependencies import get_db
+from app.dependencies import get_db, get_redis
 from app.schemas.article import ArticleCreate, ArticleListResponse, ArticleResponse, ArticleUpdate
 from app.services.article_service import ArticleService
 
@@ -32,10 +33,11 @@ async def verify_admin_key(x_admin_key: str = Header(..., description="Admin API
 async def create_article(
     body: ArticleCreate,
     db: AsyncSession = Depends(get_db),
+    redis: Redis = Depends(get_redis),
     _admin: str = Depends(verify_admin_key),
 ) -> ArticleResponse:
-    """创建文章（Admin）。"""
-    service = ArticleService(db)
+    """创建文章（Admin），自动分段和字数统计。"""
+    service = ArticleService(db, redis)
     return await service.create_article(body)
 
 
@@ -47,10 +49,11 @@ async def list_all_articles(
     page: int = Query(1, ge=1),
     page_size: int = Query(20, ge=1, le=50),
     db: AsyncSession = Depends(get_db),
+    redis: Redis = Depends(get_redis),
     _admin: str = Depends(verify_admin_key),
 ) -> ArticleListResponse:
     """获取所有文章（Admin），可选包含草稿。"""
-    service = ArticleService(db)
+    service = ArticleService(db, redis)
     return await service.get_all_articles(
         include_unpublished=include_unpublished,
         difficulty=difficulty,
@@ -65,10 +68,11 @@ async def update_article(
     article_id: uuid.UUID,
     body: ArticleUpdate,
     db: AsyncSession = Depends(get_db),
+    redis: Redis = Depends(get_redis),
     _admin: str = Depends(verify_admin_key),
 ) -> ArticleResponse:
-    """更新文章（Admin）。"""
-    service = ArticleService(db)
+    """更新文章（Admin），更新后自动清除缓存。"""
+    service = ArticleService(db, redis)
     return await service.update_article(article_id, body)
 
 
@@ -76,8 +80,9 @@ async def update_article(
 async def delete_article(
     article_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
+    redis: Redis = Depends(get_redis),
     _admin: str = Depends(verify_admin_key),
 ) -> None:
-    """删除文章（Admin）。"""
-    service = ArticleService(db)
+    """删除文章（Admin），删除后自动清除缓存。"""
+    service = ArticleService(db, redis)
     await service.delete_article(article_id)
