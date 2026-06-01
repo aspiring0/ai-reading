@@ -13,9 +13,9 @@
 
 ## 当前进度
 
-**已完成**: Checkpoint 1a-1 ✅, Checkpoint 1a-2 ✅, Checkpoint 1a-3 ✅, Checkpoint 1a-4 ✅
-**下一步**: Checkpoint 1a-5 — 前端文章页面（任务 1a.13, 1a.14）
-**Git 分支**: `feature/P1a-4-cache-and-tests`
+**已完成**: Checkpoint 1a-1 ✅, Checkpoint 1a-2 ✅, Checkpoint 1a-3 ✅, Checkpoint 1a-4 ✅, Checkpoint 1a-5 ✅
+**下一步**: Phase 1a 全部完成！进入 Phase 1b
+**Git 分支**: `feature/P1a-5-frontend-articles`
 
 > 每个 checkpoint 完成后更新此节。新会话读此文件即可知道从哪继续。
 
@@ -93,8 +93,8 @@
 | 1a.10 | 创建 `utils/text_processing.py` — 分段、字数统计、阅读时间估算 | 中 | ✅ |
 | 1a.11 | 添加 Redis 缓存（Cache-Aside 模式，缓存已发布文章，TTL 1 小时） | 中 | ✅ |
 | 1a.12 | 编写测试 — Repository CRUD、API 端点（无 LLM mocking） | 高 | ✅ |
-| 1a.13 | 前端：文章列表页 — HomeView，文章卡片展示（标题、难度、字数、主题） | 中 | ⬜ |
-| 1a.14 | 前端：文章详情页 — ArticleView，段落展示、阅读时间 | 中 | ⬜ |
+| 1a.13 | 前端：文章列表页 — HomeView，文章卡片展示（标题、难度、字数、主题） | 中 | ✅ |
+| 1a.14 | 前端：文章详情页 — ArticleView，段落展示、阅读时间 | 中 | ✅ |
 
 ## API 端点
 
