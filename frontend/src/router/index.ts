@@ -12,7 +12,12 @@ const router = createRouter({
     {
       path: '/articles',
       name: 'articles',
-      component: () => import('../views/ArticlesView.vue'),
+      component: HomeView, // 首页就是文章列表
+    },
+    {
+      path: '/articles/:id',
+      name: 'article-detail',
+      component: () => import('../views/ArticleDetailView.vue'),
     },
     {
       path: '/corpus',
