@@ -2,7 +2,7 @@
 
 > 用图示展示项目"长了什么"，每个阶段完成后更新。
 
-## 当前状态：Phase 1a-4 完成
+## 当前状态：Phase 1a 全部完成 ✅
 
 ```
 你（用户）
@@ -10,11 +10,12 @@
   ↓
 ┌─────────────────────────────────────────────────────┐
 │  前端 (localhost:5173)              状态             │
-│  ├── 首页 /                     ← 占位页面 ✅      │
-│  ├── 文章列表 /articles         ← 占位页面 ✅      │
-│  ├── 语料库 /corpus             ← 占位页面 ✅      │
+│  ├── 首页 / 文章列表             ← 卡片列表 ✅      │
+│  ├── 文章详情 /articles/:id      ← 分段展示 ✅      │
+│  ├── 语料库 /corpus             ← 占位页面 ⬜      │
 │  ├── 关于 /about                ← 占位页面 ✅      │
-│  └── API 客户端 (Axios)         ← 已配置 ✅        │
+│  ├── API 客户端 (Axios)         ← 已配置 ✅        │
+│  └── Composable (useArticles)   ← 状态管理 ✅      │
 └────────────────────┬────────────────────────────────┘
                      ↓ Vite 代理 /api → :8000
 ┌────────────────────┴────────────────────────────────┐
@@ -43,7 +44,7 @@
            ↓                  ↓
     ┌──────────────┐   ┌──────────────┐
     │ PostgreSQL   │   │ Redis        │
-    │ 2 张表 ✅    │   │ 已连接 ✅    │
+    │ 2 张表 ✅    │   │ 缓存+队列 ✅ │
     └──────────────┘   └──────────────┘
 ```
 
@@ -66,51 +67,32 @@ Vue 项目 ─→ TailwindCSS ─→ 路由 ─→ API 客户端 ─→ Docker
 - Axios 客户端已配置（带 token 注入和错误处理）
 - Vite 代理到后端已配置
 
-### Phase 1a-1: 文章数据模型 ✅
+### Phase 1a: 文章 CRUD（全链路）✅
 ```
-ORM 模型 ─→ Alembic 迁移 ─→ 数据库建表 ─→ Pydantic Schemas
+数据模型 ─→ Repository ─→ Service ─→ API ─→ 缓存 ─→ 文本工具 ─→ 前端页面
+  1a-1       1a-2        1a-3      1a-3    1a-4      1a-4        1a-5
 ```
-- articles 表：存文章标题、内容、难度等
-- article_segments 表：存分段内容（用于分段式阅读）
-- 创建和响应的数据格式已定义
-
-### Phase 1a-2: Repository 层 ✅
-```
-BaseRepository ─→ ArticleRepository ─→ 17 个测试
-```
-- 泛型 BaseRepository：get/create/update/delete/count
-- ArticleRepository：按难度/主题过滤、搜索、分页
-- 测试：CRUD / 过滤 / 分页 / 搜索 / 关联查询
-
-### Phase 1a-3: Service + API 端点 ✅
-```
-ArticleService ─→ 公开 API ─→ Admin API ─→ 14 个 API 测试 ─→ curl 实测
-```
-- 公开端点：文章列表（分页+过滤）、文章详情
-- 管理端点：创建/列表/更新/删除，X-Admin-Key 认证
-- Service 层：字数计算、发布状态管理
-- 32 个测试全部通过
-
-### Phase 1a-4: 缓存 + 文本工具 ✅
-```
-text_processing ─→ Redis 缓存 ─→ 缓存失效 ─→ 47 个测试 ─→ curl 实测
-```
-- 自动分段：按空行拆分，短行识别为标题
-- 阅读时间：按 200 词/分钟估算
-- Redis 缓存：Cache-Aside 模式，TTL 1 小时，更新/删除时自动失效
-- 47 个测试全部通过，curl 全链路验证通过
+- 6 个 API 端点：列表、详情、创建、管理列表、更新、删除
+- Admin Key 认证、分页、按难度/主题过滤
+- Redis 缓存（Cache-Aside，TTL 1 小时）
+- 自动分段（heading 检测）、字数统计、阅读时间估算
+- 前端：文章卡片列表 + 分段详情页
+- 47 个后端测试全部通过
 
 ## 接下来要建什么
 
 ```
-Phase 1a-5: 前端文章页面 ← 下一个
-  目标：用户能在浏览器看到文章列表和详情
+Phase 1b: LLM Agent ← 下一个
+  目标：接入智谱 AI，让系统能自动生成文章
   ┌──────────────────────────────────┐
-  │  前端页面                         │
-  │  ├── HomeView 文章列表（卡片）    │
-  │  │   └── 标题、难度标签、字数     │
-  │  └── ArticleView 文章详情        │
-  │      └── 分段展示、阅读时间       │
+  │  agents/base.py                  │
+  │  └── BaseAgent (调用 OpenAI SDK) │
+  │                                  │
+  │  agents/writer.py                │
+  │  └── WriterAgent (生成文章)      │
+  │                                  │
+  │  agents/judge.py                 │
+  │  └── JudgeAgent (评估文章质量)   │
   └──────────────────────────────────┘
 ```
 

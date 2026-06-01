@@ -48,7 +48,8 @@
 
 | 阶段 | 待补充主题 |
 |---|---|
-| Phase 1 | LLM Agent（调用智谱 AI） |
-| Phase 2 | Vue 组件、Composition API |
+| Phase 1b | LLM Agent（调用智谱 AI） |
+| Phase 1a | Vue 组件实战、Composable 模式（已做，待整理） |
+| Phase 2 | Vue 组件进阶、阅读交互 |
 | Phase 3 | JWT 认证、bcrypt 密码哈希、FSRS 间隔重复 |
 | Phase 4 | 测试策略、CI/CD |
